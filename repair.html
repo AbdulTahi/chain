@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <title>MATHWALLETDAPP</title>
+    <style>
+        .nav{
+            height: 100%;
+            width: auto;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    html {
+        font-size: 62.5%;
+     }
+     body {
+        box-sizing: border-box;
+     }
+     .carousel-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+     }
+     .carousel {
+        width: 90vw;
+        display: flex;
+        overflow-x: scroll;
+        scroll-behavior: smooth;
+        /* use this property to hide the scrollbar on firefox */
+        scrollbar-width: none;
+     }
+     /*  use this pseudo class to hide the scrollbar on chrome */
+     .carousel::-webkit-scrollbar {
+        display: none;
+     }
+     .item {
+        flex-basis: 20%;
+        flex-shrink: 0;
+        padding: 1rem;
+        align-items: center;
+        justify-content: center;
+     }
+     .left,
+     .right {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        color: brown;
+        font-size: 5rem;
+        overflow: hidden;
+        z-index: 100;
+     }
+     img {
+        width: 100%;
+     }
+     .item p{
+        text-align: center
+     }
+     .carousel a{
+      text-decoration: none;
+     }
+
+     /* CHATBOT */
+     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+/* body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(90deg, var(--grey) 31px, transparent 1px) 50%, linear-gradient(180deg, var(--grey) 31px, var(--blue) 1px) 50%;
+  background-size: 32px 32px;
+  color: var(--dark);
+} */
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+   scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* GLOBAL STYLES */
+:root {
+	--blue: #335DFF;
+	--grey: #F5F5F5;
+	--grey-d-1: #EEE;
+	--grey-d-2: #DDD;
+	--grey-d-3: #888;
+	--white: #FFF;
+	--dark: #222;
+}
+/* GLOBAL STYLES */
+
+
+
+
+
+
+
+/* CHATBOX */
+.chatbox-wrapper {
+	position: fixed;
+	bottom: 2rem;
+	right: 2rem;
+	width: 4rem;
+	height: 4rem;
+}
+.chatbox-toggle {
+	width: 100%;
+	height: 100%;
+	background: var(--blue);
+	color: var(--white);
+	font-size: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: .2s;
+}
+.chatbox-toggle:active {
+	transform: scale(.9);
+}
+.chatbox-message-wrapper {
+	position: absolute;
+	bottom: calc(100% + 1rem);
+	right: 0;
+	width: 420px;
+	border-radius: .5rem;
+	overflow: hidden;
+	box-shadow: .5rem .5rem 2rem rgba(0, 0, 0, .1);
+	transform: scale(0);
+	transform-origin: bottom right;
+	transition: .2s;
+}
+.chatbox-message-wrapper.show {
+	transform: scale(1);
+}
+.chatbox-message-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: var(--white);
+	padding: .75rem 1.5rem;
+}
+.chatbox-message-profile {
+	display: flex;
+	align-items: center;
+	grid-gap: .5rem;
+}
+.chatbox-message-image {
+	width: 3rem;
+	height: 3rem;
+	object-fit: cover;
+	border-radius: 50%;
+}
+.chatbox-message-name {
+	font-size: 1.125rem;
+	font-weight: 600;
+}
+.chatbox-message-status {
+	font-size: .875rem;
+	color: var(--grey-d-3);
+}
+.chatbox-message-dropdown {
+	position: relative;
+}
+.chatbox-message-dropdown-toggle {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	font-size: 1.25rem;
+	cursor: pointer;
+	border-radius: 50%;
+}
+.chatbox-message-dropdown-toggle:hover {
+	background: var(--grey);
+}
+.chatbox-message-dropdown-menu {
+	list-style: none;
+	margin: 0;
+	position: absolute;
+	top: 100%;
+	right: 0;
+	background: var(--white);
+	padding: .5rem 0;
+	width: 120px;
+	box-shadow: .25rem .25rem 1.5rem rgba(0, 0, 0, .1);
+	transform: scale(0);
+	transform-origin: top right;
+	transition: .2s;
+	border-radius: .5rem;
+}
+.chatbox-message-dropdown-menu.show {
+	transform: scale(1);
+}
+.chatbox-message-dropdown-menu a {
+	font-size: .875rem;
+	font-weight: 500;
+	color: var(--dark);
+	text-decoration: none;
+	padding: .5rem 1rem;
+	display: block;
+}
+.chatbox-message-dropdown-menu a:hover {
+	background: var(--grey);
+}
+.chatbox-message-content {
+	background: var(--grey);
+	padding: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	grid-row-gap: 1rem;
+	max-height: 300px;
+	overflow-y: auto;
+}
+.chatbox-message-item {
+	width: 90%;
+	padding: 1rem;
+}
+.chatbox-message-item.sent {
+	align-self: flex-end;
+	background: var(--blue);
+	color: var(--white);
+	border-radius: .75rem 0 .75rem .75rem;
+}
+.chatbox-message-item.received {
+	background: var(--white);
+	border-radius: 0 .75rem .75rem .75rem;
+	box-shadow: .25rem .25rem 1.5rem rgba(0, 0, 0, .05);
+}
+.chatbox-message-item-time {
+	float: right;
+	font-size: .75rem;
+	margin-top: .5rem;
+	display: inline-block;
+}
+.chatbox-message-bottom {
+	background: var(--white);
+	padding: .75rem 1.5rem;
+}
+.chatbox-message-form {
+	display: flex;
+	align-items: center;
+	background: var(--grey);
+	border-radius: .5rem;
+	padding: .5rem 1.25rem;
+}
+.chatbox-message-input {
+	background: transparent;
+	outline: none;
+	border: none;
+	resize: none;
+	scrollbar-width: none;
+}
+.chatbox-message-input::-webkit-scrollbar {
+	display: none;
+}
+.chatbox-message-submit {
+	font-size: 1.25rem;
+	color: var(--blue);
+	background: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+.chatbox-message-no-message {
+	font-size: 1rem;
+	font-weight: 600;
+	text-align: center;
+}
+/* CHATBOX */
+
+
+
+
+
+
+
+/* BREAKPOINTS */
+@media screen and (max-width: 576px) {
+	.chatbox-message-wrapper {
+		width: calc(70vw - 2rem);
+	}
+	.chatbox-wrapper {
+		bottom: 1rem;
+		right: 1rem;
+	}
+}
+/* BREAKPOINTS */
+
+</style>
+
+</head>
+<body>
+   <div class="container-fluid">
+    <div class="nav">
+        <img src="./mwallet.jpg"/>
+    </div>
+    <h4>Select Chain</h4>
+    <div class="carousel-wrapper">
+        <div class="carousel">
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Bitcoin.jpeg" />
+              <p>Bitcoin</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="https://d33wubrfki0l68.cloudfront.net/fcd4ecd90386aeb50a235ddc4f0063cfbb8a7b66/4295e/static/bfc04ac72981166c740b189463e1f74c/40129/eth-diamond-black-white.jpg"/>
+              <p>Ethereum</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Polkadot.png" height="65%" />
+              <p>Polkadot</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/flow.jpeg" />
+              <p>Flow</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/tron.jpeg" />
+              <p>Tron</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/near.jpeg" />
+              <p>Near</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/bitfrost.jpeg" />
+              <p>Bitfrost Ku</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/bifrostpol.jpeg" />
+              <p>Bitfrost Pol</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/khala.jpeg" />
+              <p>Khala</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/kintsugiBTC.jpg" />
+              <p>kintsugiBTC</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Darwinia.jpeg" />
+              <p>Darwinia</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/cronos.jpeg" />
+              <p>cronos</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/IRISnet.jpg" />
+              <p>IRISnet</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/SecretNetwork.jpeg" />
+              <p>SecretNetwork</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/KAVA.jpeg" />
+              <p>KAVA</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/HooSmartChain.jpeg" />
+              <p>HooSmart</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/HarmonyEVM.jpg" />
+              <p>HarmonyEVM</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Astar.jpg" />
+              <p>Astar</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/EthereumPoW.jpg" />
+              <p>EthereumPoW</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/EthereumFair.jpg" />
+              <p>EthereumFair</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/GateChain.jpeg" />
+              <p>GateChain</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Basilisk.jpeg" />
+              <p>Basilisk</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Neatcoin.jpeg" />
+              <p>Neatcoin</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Godwoken.jpeg" />
+              <p>Godwoken</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Fuse" />
+              <p>Fuse</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/MilkomedaCardano.jpeg" />
+              <p>Milkomeda</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/swimmer.jpg" />
+              <p>Swimmer</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Starname.jpg" />
+              <p>Starname</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Certik.jpeg" />
+              <p>Certik</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Sentinel.jpg" />
+              <p>Sentinel</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Axelar.jpg" />
+              <p>Axelar</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/IXO.jpeg" />
+              <p>IXO</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Juno.jpeg" />
+              <p>Juno</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Umee.jpg" />
+              <p>Umee</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Telos.jpg" />
+              <p>Telos</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/statemine.jpeg" />
+              <p>Statemine</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Phala.jpeg" />
+              <p>Phala</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Phala.jpeg" />
+              <p>Unique</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Cosmos.jpeg" />
+              <p>Injective</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/XDC.jpeg" />
+              <p>Humanode</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/XDC.jpeg" />
+              <p>Aurora</p>
+           </a></div>
+        <div class="item"><a href="./choice.html">
+              <img src="./images/Edgeware.jpeg" />
+              <p>Edgeware</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/SubsocialParachain.jpg" />
+              <p>Parachain</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/SubsocialSolochain.jpg" />
+              <p>Solochain</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Sora.jpeg" />
+              <p>Sora</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/CoinEx.jpeg" />
+              <p>CoinEx</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Palm.jpg" />
+              <p>Palm</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Boba" />
+              <p>Boba</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/loTeX.jpeg" />
+              <p>loTex</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+            <img src="./images/M.jpg" />
+            <p>Golois</p>
+         </a></div>   
+           <div class="item"><a href="./choice.html">
+            <img src="./images/Solana.jpeg" height="65%"/>
+            <p>Solana</p>
+         </a></div>    
+           <div class="item"><a href="./choice.html">
+            <img src="./images/EthereumClassic.jpeg" />
+            <p>Goerli</p>
+         </a></div>   
+        </div>
+     </div>
+
+     <div class="carousel-wrapper">
+        <div class="carousel">
+           <div class="item"><a href="./choice.html">
+              <img src="./images/BNBchain.jpeg" />
+              <p>BNBchain</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Solana.jpeg" height="65%"/>
+              <p>Solana</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Cosmos.jpeg" />
+              <p>Cosmos</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/statemine.jpeg" />
+              <p>Statemine</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/acala.jpg" />
+              <p>Acala</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/karura.jpeg" />
+              <p>Karura</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/parallel.jpg" />
+              <p>Parallel</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/chainX.jpg" />
+              <p>ChainX</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/CRUST.jpeg" />
+              <p>Crust</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/metis.jpeg" />
+              <p>Metis</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Oasis.jpeg" />
+              <p>Oasis</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/syscoin.jpeg" />
+              <p>Syscoin</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Bandprotocol.jpeg" />
+              <p>BAND</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/RSK.jpeg" />
+              <p>RSK</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Klaytn.jpeg" />
+              <p>Klaytn</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Astar.jpg" />
+              <p>AstarEM</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Shiden.jpg" />
+              <p>Shiden</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Shiden.jpg" />
+              <p>ShidenEV</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/KCC.jpg" />
+              <p>KCC</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Calamari.jpg" />
+              <p>Calamari</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/KILT.jpeg" />
+              <p>KILT</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/parallel.jpg" />
+              <p>ParallelHei</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Quartz.jpeg" />
+              <p>Quartz</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/smartBCH.jpeg" />
+              <p>smartBCH</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/CubeChain.jpeg" />
+              <p>Cube chain</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Osmosis.jpg" />
+              <p>Psmosis</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Akash.jpg" />
+              <p>Akash</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Regen.jpeg" />
+              <p>Regen</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Persistence.jpg" />
+              <p>Persistence</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Cryptoorg.jpg" />
+              <p>Crypto</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Stargaze.jpg" />
+              <p>Stargaze</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Sommelier.jpeg" />
+              <p>Sommelier</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Gravitybridge.jpeg" />
+              <p>Gravitybridge</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Efinty.jpeg" />
+              <p>Efinty</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/ComposableFinance.jpg" />
+              <p>Composable</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/OriginTrailParachain.jpg" />
+              <p>OriginTrail</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/XDC.jpeg" />
+              <p>XDC</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/XDC.jpeg" />
+              <p>Bitgert</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Phala.jpeg" />
+              <p>Humanode</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Phala.jpeg" />
+              <p>Kulupu</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Phala.jpeg" />
+              <p>Stafi</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Phala.jpeg" />
+              <p>Centrifuge</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Songbird.jpeg" />
+              <p>Songbird</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Darwinia.jpeg" />
+              <p>DarwiniaCrab</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/DBCmainnet.jpeg" />
+              <p>DBC</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Apechain.jpg" />
+              <p>Apechain</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/Tomochain.jpeg" />
+              <p>TomoChain</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/EthereumClassic.jpeg" />
+              <p>Ethereum Classic</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/BSCtestnet.jpeg" />
+              <p>BSC Testnet</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/NeonDev.jpeg" />
+              <p>NeonDev</p>
+           </a></div>
+           <div class="item"><a href="./choice.html">
+              <img src="./images/BAStestnet.jpeg" height="65%"/>
+              <p>BAS Test</p>
+           </a></div>
+           
+        </div>
+     </div> 
+     
+     <!-- CHATBOT -->
+     <div class="chatbox-wrapper">
+		<div class="chatbox-toggle">
+			<i class='bx bx-message-dots'></i>
+		</div>
+		<div class="chatbox-message-wrapper">
+			<div class="chatbox-message-header">
+				<div class="chatbox-message-profile">
+					<img src="./images/M.jpg" alt="" class="chatbox-message-image">
+					<div>
+						<h4 class="chatbox-message-name">Mathwallet Support</h4>
+						<!-- <p class="chatbox-message-status">online</p> -->
+					</div>
+				</div>
+				<div class="chatbox-message-dropdown">
+					<i class='bx bx-dots-vertical-rounded chatbox-message-dropdown-toggle'></i>
+					<ul class="chatbox-message-dropdown-menu">
+						<li>
+							<a href="#">Search</a>
+						</li>
+						<li>
+							<a href="#">Report</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="chatbox-message-content">
+				<h4 class="chatbox-message-no-message">we'll response as soon</h4>
+				<!-- <div class="chatbox-message-item sent">
+					<span class="chatbox-message-item-text">
+						Lorem, ipsum, dolor sit amet consectetur adipisicing elit. Quod, fugiat?
+					</span>
+					<span class="chatbox-message-item-time">08:30</span>
+				</div>
+				<div class="chatbox-message-item received">
+					<span class="chatbox-message-item-text">
+						Lorem, ipsum, dolor sit amet consectetur adipisicing elit. Quod, fugiat?
+					</span>
+					<span class="chatbox-message-item-time">08:30</span>
+				</div> -->
+			</div>
+			<div class="chatbox-message-bottom">
+				<form action="#" class="chatbox-message-form">
+					<textarea rows="1" placeholder="Type message..." class="chatbox-message-input"></textarea>
+					<button type="submit" class="chatbox-message-submit"><i class='bx bx-send' ></i></button>
+				</form>
+			</div>
+		</div>
+	</div>
+   </div>
+<script src="./chatbot.js"></script>
+   </body>
+</html>
+</body>
+</html>
